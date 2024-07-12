@@ -1,0 +1,82 @@
+<div class="container-fluid ">
+
+    <div class="row" style="margin-top:5.3rem;">
+        <div class="d-flex justify-content-between align-items-center "
+            style="background-color: rgb(9, 42, 77); height: 35px; ">
+
+            <div class="text-white" style="margin-left:5px; font-weight: 500;">Register Configuration</div>
+            <div class="d-flex align-items-center">
+                <i class="fas fa-plus" style="font-size: 21px; color: white; margin-right: 20px;" (click)="navigate()"></i>
+            </div>
+
+        </div>
+        
+        <div class="mt-2 mb-7">
+          <div *ngIf="loading" class="spinner-border" style="position: absolute; top: 50%; left: 50%; z-index: 10;"  role="status"></div>
+            <kendo-grid [kendoGridBinding]="RegisterList" [pageSize]="pageSize" [skip]="skip" [resizable]="true"
+            (pageChange)="pageChange($event)" [sort]="sort" [columnMenu]="{ filter: true }" [pageable]="{
+              buttonCount: 7,
+              info: true,
+              pageSizes: [5,10,20,50,100],
+              previousNext: true
+            }" class="gridhandcursor text-center  mb-7" (sortChange)="sortChange($event)" [sortable]="{
+             allowUnsort: allowUnsort,
+             mode: multiple ? 'multiple' : 'single'
+             }">
+      
+            <kendo-grid-messages noRecords="No Records">
+            </kendo-grid-messages>
+            <kendo-grid-column field="UserID" title="UserID" [hidden]="true">
+            </kendo-grid-column>
+            <kendo-grid-column field="firstName" title="First Name">
+            </kendo-grid-column>
+            <kendo-grid-column field="lastName" title="Last Name">
+            </kendo-grid-column>
+            <kendo-grid-column field="userName" title="Username">
+            </kendo-grid-column>
+            <kendo-grid-column field="designation" title="Designation">
+            </kendo-grid-column>
+            <kendo-grid-column field="email" title="Email">
+            </kendo-grid-column>
+            <kendo-grid-column field="dob" title="DOB">
+            </kendo-grid-column>
+            <kendo-grid-column field="gender" title="Gender">
+            </kendo-grid-column>
+          
+            <!-- <kendo-grid-column field="password" title="Password">
+            </kendo-grid-column> -->
+            <kendo-grid-column field="role" title="Role">
+            </kendo-grid-column>
+            <kendo-grid-column title="" class="text-center d-flex justify-content-center" [width]="100">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                  <div (click)="editClick(dataItem)">
+                      <i class="fa fa-edit mr-1 p-0"></i>
+                  </div>&nbsp;&nbsp;&nbsp;
+                  <div (click)="deleteClick(dataItem)">
+                      <i class="fa fa-trash mr-1"></i>
+                  </div> &nbsp;
+              </ng-template>
+          </kendo-grid-column>
+            <ng-template>
+              <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+              <kendo-pager-info></kendo-pager-info>
+              <kendo-pager-next-buttons></kendo-pager-next-buttons>
+            </ng-template>
+          </kendo-grid>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- firstName: '',
+lastName: '',
+designation: '',
+email: '',
+Operation:'',
+DOB: '',
+Gender: '',
+Username: '',
+Password: '',
+ConfirmPassword: '',
+Role: '', -->

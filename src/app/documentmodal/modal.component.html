@@ -1,0 +1,69 @@
+<div style="width: 50rem;">
+  <div class="modal-header" style="background-color: rgb(9, 42, 77); color: white; height: 45px;">
+    <h5 class="modal-title p-4" id="exampleModalLabel">Candidate Documents</h5>
+   
+
+    <i class="far fa-circle-xmark" style="font-size: 21px; color: white; margin-right: 1.5rem;" (click)="close()"></i>
+  </div>
+  <div class="modal-body m-4">
+    <form [formGroup]="form">
+      <table>
+        <tr>
+          <td><label>Upload Documents :</label></td>
+          <td>
+            <button id="import1" type="button" class="btn btn-sm btn-custom m-1" style="background-color: 
+          rgb(45, 160, 236); color: white;" (click)="file1.click()">
+              <i class="fa fa-upload mr-1"></i>&nbsp; Upload
+            </button>
+            <input #file1 type="file" name="file1" formControlName="file" (change)="onSelect($event)" multiple hidden>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+
+  <div>
+    <kendo-grid [kendoGridBinding]="uploadedFiles" [pageSize]="pageSize" [skip]="skip" [resizable]="true"
+      (pageChange)="pageChange($event)" [sort]="sort" [columnMenu]="{filter: true}" [pageable]="{buttonCount: 7,
+                info: true,
+                pageSizes: [5,10,20,50,100],
+                previousNext: true }" class="gridhandcursor text-center mb-7" (sortChange)="sortChange($event)"
+      [sortable]="{
+               allowUnsort: allowUnsort,
+               mode: multiple ? 'multiple' : 'single'}">
+      <kendo-grid-messages noRecords="No Records"></kendo-grid-messages>
+
+      <!-- <kendo-grid-column field="fileName" title="Document Name"></kendo-grid-column> -->
+
+      <kendo-grid-column field="fileName" title="File Name">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <a href="javascript:void(0)" (click)="dounloadclick(dataItem.fileName, dataItem.candidate_ID)">{{dataItem.fileName}}</a>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="" class="text-center d-flex justify-content-center" [width]="70">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <!-- <div (click)="openDocument(dataItem)">
+            <i class="fa fa-eye mr-1"></i>
+          </div> &nbsp; -->
+          <div (click)="deleteClick(dataItem)">
+            <i class="fa fa-trash mr-1"></i>
+          </div> &nbsp;
+        </ng-template>
+      </kendo-grid-column>
+
+      <ng-template>
+        <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+        <kendo-pager-info></kendo-pager-info>
+        <kendo-pager-next-buttons></kendo-pager-next-buttons>
+      </ng-template>
+    </kendo-grid>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn m-4 text-white" (click)="close()">
+      Close
+    </button>
+  </div>
+</div>
+

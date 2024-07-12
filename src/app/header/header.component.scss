@@ -1,0 +1,39 @@
+.header {
+    background-color: rgb(9, 42, 77);
+    color: white;
+    // padding: 10px 0;
+    text-align: center;
+
+    // width: 100%;
+    // z-index: 1030; /* Ensure the header and menu stay above other content */
+    // top: 0;
+  }
+  .nav-link.active {
+    color: rgb(2, 41, 73); /* or any color you want */
+    font-weight: bold; /* optional */
+    /* other styles */
+}
+  .title {
+    margin: 0;
+    font-size: 24px;
+    flex-grow: 1;
+    text-align: center;
+  }
+  .logo {
+    width: 150px;
+    height: auto;
+  }
+
+  @media (max-width: 576px) {
+    .title {
+      font-size: 16px; /* Adjust the font size for small screens */
+    }
+    .logo {
+      width: 80px;
+      height: auto;
+    }
+  }
+
+  .k-svg-icon:hover {
+    color: #ff0000; /* Change to your desired hover color */
+  }

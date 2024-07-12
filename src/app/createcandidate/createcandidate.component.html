@@ -1,0 +1,862 @@
+<!-- <form [formGroup]="myForm" (ngSubmit)="onSubmit()" style="margin-top: 8rem;">
+    <kendo-dropdownlist
+      [data]="data"
+      textField="text"
+      valueField="value"
+      formControlName="CandidateType"
+      [defaultItem]="defaultItem"
+    >
+    </kendo-dropdownlist>
+    <button type="submit">Submit</button>
+  </form>
+   -->
+
+<div class="container-fluid">
+
+    <div class="row" style="margin-top:5.3rem;">
+
+        <div class="d-flex justify-content-between align-items-center"
+            style="background-color: rgb(9, 42, 77);   height: 35px; ">
+            <div class="text-white" style="margin-left:5px; font-weight: 500;">CANDIDATE</div>
+
+            <div class="d-flex align-items-center">
+                <i class="fas fa-circle-left" style="font-size: 21px; color: white; margin-right: 20px;"
+                    (click)="navigate()"></i>
+            </div>
+        </div>
+    </div>
+    <form class="mb-7" [formGroup]="myForm" (ngSubmit)="onCandidateSubmit()">
+        <div class="col-md-12">
+
+            <div class="row m-3">
+                <div class="col-md-3">
+                    <div>
+                        <label for="PostID">Post applied for <span style="color: red;">*</span></label>
+                        <kendo-dropdownlist formControlName="PostID" [data]="allposts" class="form-control"
+                            textField="postAppliedFor" valueField="postID"
+                            [ngClass]="{ 'is-invalid': submitted && (fa.PostID.errors || fa.PostID.value.value === 0) }"></kendo-dropdownlist>
+                        <div *ngIf="submitted && (fa.PostID.errors || fa.PostID.value.value === 0)"
+                            class="invalid-feedback">
+                            <div *ngIf="fa.PostID.errors?.required || fa.PostID.value.value === 0">Post
+                                applied for is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="">
+                            <label for="FirstName">Source <span style="color: red;">*</span></label>
+                        </div>
+                        <div class="">
+                            <div class="form-check form-check-inline">
+                                <input mdbRadio class="form-check-input" type="radio" name="Source" id="inlineRadio1"
+                                    value="0" formControlName="Source"
+                                    [ngClass]="{ 'is-invalid': submitted && (fa.Source.errors || fa.Source.value === '') }" />
+                                <label class="form-check-label" for="inlineRadio1">Referral</label>
+
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input mdbRadio class="form-check-input" type="radio" name="Source" id="inlineRadio2"
+                                    value="1" formControlName="Source"
+                                    [ngClass]="{ 'is-invalid': submitted && (fa.Source.errors || fa.Source.value === '')}" />
+                                <label class="form-check-label" for="inlineRadio2">Job Portal</label>
+                            </div>
+                            <div *ngIf="submitted && (fa.Source.errors || fa.Source.value === '')">
+                                <div *ngIf="fa.Source.errors.required  || fa.Source.value === ''"
+                                    style="color: #dc4c64; font-size: 0.875em;">Source is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="candidateType">Candidate Type <span style="color: red;">*</span></label>
+                    <!-- <kendo-dropdownlist [data]="candidateTypedropdown" textField="text" valueField="value"
+                            formControlName="CandidateType" [defaultItem]="defaultItem" (valueChange)="CandidatetypeChange($event)" > </kendo-dropdownlist> -->
+                    <kendo-dropdownlist formControlName="CandidateType" [data]="candidateTypedropdown"
+                        class="form-control" textField="text" valueField="value"
+                        [ngClass]="{ 'is-invalid': submitted && (fa.CandidateType.errors || fa.CandidateType.value.value === 0  )}"
+                        (valueChange)="CandidatetypeChange($event)"></kendo-dropdownlist>
+                    <div *ngIf="submitted && (fa.CandidateType.errors || fa.CandidateType.value.value === 0)"
+                        class="invalid-feedback">
+                        <div *ngIf="fa.CandidateType.errors?.required || fa.CandidateType.value.value === 0">Candidate
+                            Type is required</div>
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    <label for="dropdown">Status <span style="color: red;">*</span></label>
+                    <div>
+                        <kendo-dropdownlist [data]="statusType" textField="text" valueField="value" class="form-control"
+                            formControlName="FinalStatus"
+                            [ngClass]="{ 'is-invalid': submitted && (fa.FinalStatus.errors || fa.FinalStatus.value.value === 0  ) }">
+                        </kendo-dropdownlist>
+                        <div *ngIf="submitted && (fa.FinalStatus.errors || fa.FinalStatus.value.value === 0)"
+                            class="invalid-feedback">
+                            <div *ngIf="fa.FinalStatus.errors?.required || fa.FinalStatus.value.value === 0">Status is
+                                required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+
+                        <label for="fileUpload">Resume</label>
+                        <div class="d-flex align-items-center">
+                            <button id="import1" class="form-control" type="button" class="btn btn-sm btn-custom m-1"
+                                style="background-color:rgb(45, 160, 236); color: white;" (click)="file1.click()">
+                                <i class="fa fa-upload mr-1"></i>&nbsp; Upload Resume
+                            </button>
+                            <input #file1 type="file" name="fileUpload" formControlName="FilePath"
+                                (change)="onFileSelected($event)" multiple hidden>
+                            <label style="margin-left: 5px;">{{ResumeName}}</label>
+                        </div>
+                        <!-- <input type="file" id="fileUpload" (change)="onFileSelected($event)"> -->
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="FirstName" class="">Name <span style="color: red;">*</span></label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Surname" formControlName="Surname"
+                            [ngClass]="{ 'is-invalid': submitted && fa.Surname.errors }" />
+                        <div *ngIf="submitted && fa.Surname.errors" class="invalid-feedback">
+                            <div *ngIf="fa.Surname.errors.required">Surname is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="FirstName" class=""></label>
+                    </div>
+                    <input type="text" class="form-control" placeholder="First Name"
+                        formControlName="CandidateFirstName"
+                        [ngClass]="{ 'is-invalid': submitted && fa.CandidateFirstName.errors }" />
+                    <div *ngIf="submitted && fa.CandidateFirstName.errors" class="invalid-feedback">
+                        <div *ngIf="fa.CandidateFirstName.errors.required">First Name is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-3 ">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="FatherName" class="">Father/Husband Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Father Name"
+                            formControlName="FatherName" />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="FirstName" class=""></label>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Husband Name" formControlName="HusbandName" />
+
+                </div>
+            </div>
+            <hr />
+            <div class="row justify-content-evenly">
+                <div class=" col-sm-4 col-md-4 columns p-3 m-2 border columnData position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:min-content; transform:translateX(30px); transform:translateY(-50%);">
+                            ADDRESS: </legend>
+                        <label for="ADDRESS" class="">Address<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" formControlName="Address"
+                            [ngClass]="{ 'is-invalid': submitted && fa.Address.errors }" />
+
+                        <div *ngIf="submitted && fa.Address.errors" class="invalid-feedback">
+                            <div *ngIf="fa.Address.errors.required">Address is required</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <label for="city" class="">City<span style="color: red;">*</span></label>
+                                <input type="text" class="form-control" formControlName="City" formControlName="City"
+                                    [ngClass]="{ 'is-invalid': submitted && fa.City.errors }" />
+                                <div *ngIf="submitted && fa.City.errors" class="invalid-feedback">
+                                    <div *ngIf="fa.City.errors.required">City is required</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="pincode" class="">Pin Code</label>
+                                <input type="number" class="form-control" formControlName="PIN" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="state" class="">State<span style="color: red;">*</span></label>
+                                <input type="text" class="form-control" formControlName="State"
+                                    [ngClass]="{ 'is-invalid': submitted && fa.State.errors }" />
+                                <div *ngIf="submitted && fa.State.errors" class="invalid-feedback">
+                                    <div *ngIf="fa.State.errors.required">State is required</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="mobile" class="">Mobile #<span style="color: red;">*</span></label>
+                                <input type="text" class="form-control" formControlName="Mobile"
+                                    [ngClass]="{ 'is-invalid': submitted && fa.Mobile.errors }" />
+                                <div *ngIf="submitted && fa.Mobile.errors" class="invalid-feedback">
+                                    <div *ngIf="fa.Mobile.errors.required ">Mobile # is required</div>
+                                    <div *ngIf="fa.Mobile.errors.pattern">Enter a valid Mobile #</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="email" class="">Email ID<span style="color: red;">*</span></label>
+                                <input type="email" class="form-control" formControlName="CandidateEmail"
+                                    [ngClass]="{ 'is-invalid': submitted && fa.CandidateEmail.errors }" />
+                                <div *ngIf="submitted && fa.CandidateEmail.errors" class="invalid-feedback">
+                                    <div *ngIf="fa.CandidateEmail.errors.required">Email ID is required</div>
+                                    <div *ngIf="fa.CandidateEmail.errors.email">Please Enter Valid Email ID</div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=" col-sm-4 col-md-4 columns p-3 m-2 border columnData position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:min-content; transform:translateX(30px); transform:translateY(-50%);">
+                            PERSONAL:</legend>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="dob" class="">Date of Birth<span
+                                                style="color: red;">*</span></label>
+                                        <kendo-datepicker placeholder="Choose a date ..." formControlName="DOB"
+                                            [format]="'dd-MM-yyyy'" class="form-control" [max]="max"
+                                            [ngClass]="{ 'is-invalid': submitted && (fa.DOB.errors || fa.DOB.value.length ===0)}"></kendo-datepicker>
+                                        <div *ngIf="submitted && (fa.DOB.errors || fa.DOB.value.length=== 0)"
+                                            class="invalid-feedback">
+                                            <div *ngIf="fa.DOB.errors?.required || fa.DOB.value.length === 0">Date of
+                                                Birth is required</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label for="gender" class="">Gender<span
+                                                    style="color: red;">*</span></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check form-check-inline">
+                                                <input mdbRadio class="form-check-input" type="radio" name="Gender"
+                                                    id="inlineRadio33" value="M" formControlName="Gender"
+                                                    [ngClass]="{ 'is-invalid': submitted && fa.Gender.errors }" />
+                                                <label class="form-check-label" for="inlineRadio33">Male</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input mdbRadio class="form-check-input" type="radio" name="Gender"
+                                                    id="inlineRadio66" value="F" formControlName="Gender"
+                                                    [ngClass]="{ 'is-invalid': submitted && fa.Gender.errors }" />
+
+                                                <label class="form-check-label" for="inlineRadio66">Female</label>
+
+
+                                            </div>
+                                            <div *ngIf="submitted && fa.Gender.errors">
+                                                <div *ngIf="fa.Gender.errors?.required"
+                                                    style="color: #dc4c64; font-size: 0.875em;">Gender is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="col-md-3">
+                                            <label for="FirstName" class="">Status</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check form-check-inline">
+                                                <input mdbRadio class="form-check-input" type="radio"
+                                                    name="MaritalStatus" id="inlineRadio10" value="0"
+                                                    formControlName="MaritalStatus" />
+                                                <label class="form-check-label" for="inlineRadio10">Single</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input mdbRadio class="form-check-input" type="radio"
+                                                    name="MaritalStatus" id="inlineRadio20" value="1"
+                                                    formControlName="MaritalStatus" />
+                                                <label class="form-check-label" for="inlineRadio20">Married</label>
+                                            </div>
+                                            <div *ngIf="submitted && fa.MaritalStatus.errors" class="invalid-feedback">
+                                                <div *ngIf="fa.MaritalStatus.errors.required">Marital Status is
+                                                    required</div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="FirstName" class="">Languages Known</label>
+                                <input type="text" class="form-control" formControlName="LanguagesKnown" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=" col-sm-4 col-md-4 columns p-3 m-2 border columnData position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:min-content; transform:translateX(30px); transform:translateY(-50%);">
+                            COMPENSATION:</legend>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="FirstName" class="">Total Experience<span
+                                                            style="color: red;">*</span></label>
+                                                    <input type="number" class="form-control"
+                                                        formControlName="TotalExperience" value="TotalExperience"
+                                                        [ngClass]="{ 'is-invalid': submitted && fa.TotalExperience.errors }" />
+                                                    <div *ngIf="submitted && fa.TotalExperience.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="fa.TotalExperience.errors.required">Total
+                                                            Experience is required
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="FirstName" class="">Notice Period</label>
+                                                    <input type="number" class="form-control"
+                                                        formControlName="NoticePeriod" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="FirstName" class="">Current CTC</label>
+                                                    <input type="number" class="form-control"
+                                                        formControlName="CurrentCTC" />
+
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="FirstName" class="">Expected CTC</label>
+                                                    <input type="number" class="form-control"
+                                                        formControlName="ExpectedCTC" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-11 multiselect-container">
+
+                                        <kendo-label text="Core Skills:"><span style="color: red;">*</span>
+                                            <kendo-multiselect [checkboxes]="true" [autoClose]="false"
+                                                class="form-control" [data]="allskills" textField="skillName"
+                                                valueField="skillID" formControlName="SkillName"
+                                                [ngClass]="{ 'is-invalid': submitted && (fa.SkillName.errors || fa.SkillName.value.length === 0  ) }">
+                                            </kendo-multiselect>
+                                            <div *ngIf="submitted && (fa.SkillName.errors || fa.SkillName.value.length === 0)"
+                                                class="invalid-feedback">
+                                                <div
+                                                    *ngIf="fa.SkillName.errors?.required || fa.SkillName.value.length === 0">
+                                                    Core Skills is required</div>
+                                            </div>
+                                        </kendo-label>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <label for="FirstName" class="">Do you hold an offer with any other
+                                                    Organization :</label>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-check form-check-inline">
+                                                    <input mdbRadio class="form-check-input" type="radio"
+                                                        name="HoldAnyOffer" id="inlineRadio11"
+                                                        formControlName="HoldAnyOffer" value="yes" />
+                                                    <label class="form-check-label" for="inlineRadio19">YES</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input mdbRadio class="form-check-input" type="radio"
+                                                        name="HoldAnyOffer" id="inlineRadio12" value="no"
+                                                        formControlName="HoldAnyOffer" />
+                                                    <label class="form-check-label" for="inlineRadio29">NO</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                </div>
+            </div>
+            <hr />
+            <div class="row justify-content-evenly">
+                <div class="col-md-11 p-3 m-4 border  position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:min-content; transform:translateX(30px); transform:translateY(-50%);">
+                            EDUCATION:</legend>
+                        <table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light" style="background-color: #dbd6d6!important;">
+                                <tr>
+                                    <th>Course/Degree/Specialization</th>
+                                    <th>School/College/Institution & Location</th>
+                                    <th>Year of Passing</th>
+                                    <th>% of Marks</th>
+                                    <th>Dist. / Awards Received</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" class="form-control" formControlName="Course1" />
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="School1" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" formControlName="Yearofpassing1" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            formControlName="PercentageofMarks1" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                            formControlName="DistinctionORAwardsReceived1" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" class="form-control" formControlName="Course2" />
+                                        </div>
+                                    </td>
+
+                                    <td>
+
+                                        <input type="text" class="form-control" formControlName="School2" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" formControlName="Yearofpassing2" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            formControlName="PercentageofMarks2" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                            formControlName="DistinctionORAwardsReceived1" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" class="form-control" formControlName="Course3" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="School3" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" formControlName="Yearofpassing3" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            formControlName="PercentageofMarks3" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                            formControlName="DistinctionORAwardsReceived3" />
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row justify-content-evenly">
+                <div class="col-md-11 p-3 m-4 border  position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:auto; transform:translateX(30px); transform:translateY(-50%);">
+                            CURRENT EMPLOYMENT:</legend>
+                        <table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light" style="background-color: #dbd6d6!important;">
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Job Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <input type="text" class="form-control" formControlName="JobTitle" />
+                                    </td>
+                                    <td>
+                                        <kendo-dropdownlist [data]="jobType" textField="text" valueField="value"
+                                            class="form-control" formControlName="JobType">
+                                        </kendo-dropdownlist>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row justify-content-evenly">
+                <div class="col-md-11 p-3 m-4 border  position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:min-content; transform:translateX(30px); transform:translateY(-50%);">
+                            EMPLOYMENT:</legend>
+                        <table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light" style="background-color: #dbd6d6!important;">
+                                <tr>
+                                    <th>Name of the Organization</th>
+                                    <th>Position Held</th>
+                                    <th>Starting Salary</th>
+                                    <th>Last Salary</th>
+                                    <th>Date of Joining </th>
+                                    <th>Date of Leaving</th>
+                                    <th>Reason for Leaving</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" class="form-control" formControlName="Organization1" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="PositionHeld1" />
+                                    </td>
+                                    <td>
+
+                                        <input type="number" class="form-control" formControlName="StartingSalary1" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" formControlName="LastDrawnSalary1" />
+                                    </td>
+                                    <td>
+                                        <!-- <input type="text" class="form-control" formControlName="DOJ1" /> -->
+                                        <kendo-datepicker placeholder="Choose a date ..." class="form-control"
+                                            [format]="'dd-MM-yyyy'" formControlName="DOJ1"></kendo-datepicker>
+                                    </td>
+                                    <td>
+                                        <kendo-datepicker placeholder="Choose a date ..." class="form-control"
+                                            [format]="'dd-MM-yyyy'" formControlName="DOL1"></kendo-datepicker>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="ROL1" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" class="form-control" formControlName="Organization2" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="PositionHeld2" />
+                                    </td>
+                                    <td>
+
+                                        <input type="number" class="form-control" formControlName="StartingSalary2" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" formControlName="LastDrawnSalary2" />
+                                    </td>
+                                    <td>
+                                        <!-- <input type="text" class="form-control" formControlName="DOJ2" /> -->
+                                        <kendo-datepicker placeholder="Choose a date ..." class="form-control"
+                                            [format]="'dd-MM-yyyy'" formControlName="DOJ2"></kendo-datepicker>
+                                    </td>
+                                    <td>
+                                        <kendo-datepicker placeholder="Choose a date ..." class="form-control"
+                                            [format]="'dd-MM-yyyy'" formControlName="DOL2"></kendo-datepicker>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="ROL2" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" class="form-control" formControlName="Organization3" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="PositionHeld3" />
+                                    </td>
+                                    <td>
+
+                                        <input type="number" class="form-control" formControlName="StartingSalary3" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" formControlName="LastDrawnSalary3" />
+                                    </td>
+                                    <td>
+                                        <!-- <input type="text" class="form-control" formControlName="DOJ3" /> -->
+                                        <kendo-datepicker placeholder="Choose a date ..." class="form-control"
+                                            [format]="'dd-MM-yyyy'" formControlName="DOJ3"></kendo-datepicker>
+                                    </td>
+                                    <td>
+                                        <kendo-datepicker placeholder="Choose a date ..." class="form-control"
+                                            [format]="'dd-MM-yyyy'" formControlName="DOL3"></kendo-datepicker>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="ROL3" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row justify-content-evenly" *ngIf="candidateRegionTest">
+                <div class="col-md-11 p-3 m-4 border  position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:auto; transform:translateX(30px); transform:translateY(-50%);">
+                            USA EMPLOYMENT DETAILS: </legend>
+                        <table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light" style="background-color: #dbd6d6 !important;">
+                                <tr>
+                                    <th>Current Employer</th>
+                                    <th>Passport No #</th>
+                                    <th>Nationality</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control"
+                                            formControlName="VendorNameOREmployerName" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="PassportNo" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="Nationality" />
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                            <thead class="bg-light h-25 " style="background-color: #dbd6d6 !important;">
+                                <tr>
+                                    <th>Work Authorization</th>
+                                    <th>Driving License #</th>
+                                    <th>SSN #</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <kendo-dropdownlist [data]="visaType" textField="text" valueField="value"
+                                            class="form-control" formControlName="VisaType">
+                                        </kendo-dropdownlist>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="DriverLicence" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="SSN" />
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row justify-content-evenly">
+                <div class="col-md-11 p-3 m-4 border  position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:auto; transform:translateX(30px); transform:translateY(-50%);">
+                            FEEDBACK BY RATING:</legend>
+                        <table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light" style="background-color: #dbd6d6 !important;">
+                                <tr>
+                                    <th>Technical</th>
+                                    <th>Rating in Communication</th>
+                                    <th>Test</th>
+                                    <th>Interviewer Name</th>
+                                    <th>Comments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="number" class="form-control"
+                                                formControlName="RatingTechinical1" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            formControlName="RatingCommunication1" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" formControlName="RatingTest1" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="Interviewer1" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="Comments1" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="number" class="form-control"
+                                                formControlName="RatingTechinical2" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            formControlName="RatingCommunication2" />
+                                    </td>
+                                    <td>
+
+                                        <input type="number" class="form-control" formControlName="RatingTest2" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="Interviewer2" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="Comments2" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input type="number" class="form-control"
+                                                formControlName="RatingTechinical3" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                            formControlName="RatingCommunication3" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" formControlName="RatingTest3" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="Interviewer3" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" formControlName="Comments3" />
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row justify-content-evenly">
+                <div class="col-md-11 p-3 m-4 border  position-relative d-block">
+                    <fieldset>
+                        <legend class="position-absolute top-0 bg-white"
+                            style="width:auto; transform:translateX(30px); transform:translateY(-50%);">
+                            HR FEEDBACK:</legend>
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="row" style="margin-top: 15px;">
+                                    <textarea mdbInput class="form-control" id="textAreaExample" rows="4"
+                                        formControlName="HRFeedback"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row justify-content-evenly">
+                <div class="col mb-7" style="margin-left: 5rem;">
+                    <button class="btn btn-primary m-0">{{btnName}}</button>
+                    <!-- <button kendoButton class="btn btn-primary " style="margin-left: 10px;">Save & Leave
+                            Open</button> -->
+                    <button type="button" class="btn btn-primary" style="margin-left: 10px;"
+                        (click)="cancelClick()">Cancel</button>
+
+
+                    <button *ngIf="candidateId!=null" type="button" class="btn btn-primary" style="margin-left: 10px;"
+                        (click)="openPopup(candidateId)">Documents
+                        Upload</button>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<!-- 
+<mdb-modal #basicModal title="Basic modal" [animation]="true">
+    <mdb-modal-body>
+      Content of the modal goes here...
+    </mdb-modal-body>
+    <mdb-modal-footer>
+      <button mdbBtn color="secondary" outline="true" (click)="basicModal.hide()">Close</button>
+    </mdb-modal-footer>
+  </mdb-modal> -->

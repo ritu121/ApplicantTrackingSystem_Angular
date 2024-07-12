@@ -1,0 +1,96 @@
+.card {
+    height: 100%;
+}
+
+/* Add custom CSS to stretch cards to full width */
+.card {
+    width: 100%;
+    color: white;
+    /* Ensure each card takes up the full width of its column */
+}
+// .cardFont{
+//  font-weight: 500;
+// }
+
+.card-body{
+    padding: 10px;
+    line-height: 17px;
+}
+
+
+.search-form {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    margin-top: 20px;
+    width:50%
+}
+
+.k-svg-icon {
+color: white !important;
+}
+.table-container {
+    padding-bottom: 60px;
+    /* Ensure there's enough space for the paginator */
+}
+a{
+    text-decoration: solid !important;
+    color: rgb(4, 68, 187) !important;
+}
+
+.mat-elevation-z8 {
+    overflow: auto;
+}
+
+// .container-fluid {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+.row {
+    flex: 1;
+    // overflow: auto;
+}
+
+// .mat-mdc-paginator-container .mat-mdc-paginator-page-size{
+//   padding-bottom: 20px;
+// }
+
+
+.mat-mdc-paginator {
+    padding-bottom: 50px;
+}
+
+mat-paginator {
+    margin-top: 20px;
+    flex: 0 0 auto;
+}
+@media (max-width: 992px) {
+    .search-form {
+      width: 100%;
+    }
+  }
+  
+
+// @media (min-width: 1290px) {
+//     .fonts {
+//       font-size: 14px;
+//     }
+//   }
+  
+//   @media (min-width: 1500px) {
+//     .fonts {
+//       font-size: 14px;
+//     }
+//   }
+//   @media (max-width: 600px) {
+//     .fonts {
+//       font-size: 14px;
+//     }
+//   }
+//   @media (max-width: 400px) {
+//     .fonts {
+//       font-size: 12px;
+//     }
+//   }
+

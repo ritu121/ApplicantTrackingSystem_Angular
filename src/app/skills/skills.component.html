@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <div class="row" style="margin-top:5.3rem">
+    <div class="d-flex justify-content-between align-items-center"
+      style="background-color: rgb(9, 42, 77); height: 35px; ">
+      <div class="text-white" style="margin-left:5px; font-weight: 500;">Skill Configuration</div>
+
+      <!-- <div class="d-flex align-items-center">
+        <i class="fas fa-circle-left" style="font-size: 21px; color: white; margin-right: 20px;"></i>
+      </div> -->
+    </div>
+
+  </div>
+  <form [formGroup]="SkillsForm" (ngSubmit)="onSave()">
+    <div class="row border m-3 w-50">
+      <div class="col-md-6">
+        <div class="p-3">
+          <div class="form-group">
+            <label for="skillName">Skill Name <span style="color: red;">*</span></label>
+            <input type="text" id="SkillName" formControlName="SkillName" class="form-control" placeholder="Skill Name"
+              [ngClass]="{ 'is-invalid': submitted && SkillsForm.get('SkillName')?.invalid }" />
+            <div *ngIf="submitted && SkillsForm.get('SkillName')?.invalid" class="invalid-feedback">
+              <div *ngIf="SkillsForm.get('SkillName')?.errors?.['required']">Skill Name is required.</div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group mt-1">
+            <input type="checkbox" id="IsActive" formControlName="IsActive" class="m-1 ml-2" [ngClass]="{
+                  'is-invalid': submitted && SkillsForm.get('IsActive')?.invalid
+                }" />
+            <label for="IsActive" class="mb-0 ml-2">Is Active </label>
+            <div *ngIf="submitted && SkillsForm.get('IsActive')?.invalid" class="invalid-feedback">
+              <div *ngIf="SkillsForm.get('IsActive')?.errors?.['required']">
+                You must confirm that the post is active.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-evenly mt-1" style="margin-left: 5px;">
+        <div class="col mb-3">
+          <button type="submit" class="btn m-0 text-white">{{ btnlabel }}</button>
+          <button type="button" class="btn btn-secondary text-white" style="margin-left: 10px;"
+            (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+      <div class="row justify-content-evenly mt-1" style="margin-left: 5px;">
+        <div *ngIf="Failed" class="form-label error-message1" style="color: red;">
+          {{message}}
+         </div>
+      </div>
+      
+      
+    </div>
+  </form>
+
+  <div class="w-50 m-3">
+    <div *ngIf="loading" class="spinner-border" style="position: absolute; top: 50%; left: 50%; z-index: 10;"  role="status"></div>
+    
+    <kendo-grid [kendoGridBinding]="SkillList" [pageSize]="pageSize" [skip]="skip" [resizable]="true"
+      (pageChange)="pageChange($event)" [sort]="sort" [columnMenu]="{ filter: true }" [pageable]="{
+        buttonCount: 7,
+        info: true,
+        pageSizes: [5,10,20,50,100],
+        previousNext: true
+      }" class="gridhandcursor text-center  mb-7" (sortChange)="sortChange($event)" [sortable]="{
+       allowUnsort: allowUnsort,
+       mode: multiple ? 'multiple' : 'single'
+       }">
+
+      <kendo-grid-messages noRecords="No Records">
+      </kendo-grid-messages>
+      <kendo-grid-column field="skillID" title="Skill ID" [hidden]="true">
+      </kendo-grid-column>
+      <kendo-grid-column field="skillName" title="Skill Name">
+      </kendo-grid-column>
+      <kendo-grid-column field="isActive" title="Active/InActive" [width]="150">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span *ngIf="dataItem.isActive; else inactive">{{dataItem.isActive}}</span>
+          <ng-template #inactive>Inactive</ng-template>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="" class="text-center " [width]="100">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <button kendoGridEditCommand (click)="editClick(dataItem)">
+            <i class="fa fa-edit mr-1"></i></button>&nbsp;
+        </ng-template>
+      </kendo-grid-column>
+      <ng-template>
+        <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+        <kendo-pager-info></kendo-pager-info>
+        <kendo-pager-next-buttons></kendo-pager-next-buttons>
+      </ng-template>
+    </kendo-grid>
+  </div>
+
+</div>

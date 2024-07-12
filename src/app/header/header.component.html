@@ -1,0 +1,61 @@
+<div class="header fixed-top ">
+  <div class="p-0 m-3 position-relative ">
+    <div class="position-absolute left-0 top-0"><img src="assets/white-logo.png" alt="Company Logo" class="logo"></div>
+    <div class="header-content">
+      <h1 class="title ">APPLICANT TRACKING SYSTEM</h1>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white mb-0 mt-3" *ngIf="showMenu">
+    <div class="container-fluid mt-8" style="height: 22px;">
+      <button class="navbar-toggler" type="button" (click)="fixedNavbarExample.toggle()"
+        aria-controls="fixedNavbarExample" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div mdbCollapse #fixedNavbarExample="mdbCollapse" class="collapse navbar-collapse " id="fixedNavbarExample">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <!-- <li class="nav-item active">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li> -->
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/candidates" routerLinkActive="active">Candidate</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/vendor" routerLinkActive="active">Vendor</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link"  routerLink="/jobs" routerLinkActive="active">Jobs</a>
+          </li>
+        </ul>
+        <!-- <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+           
+            <button class="btn btn-primary btn-rounded" (click)="logout()">Logout</button>
+          </li>
+        </ul> -->
+        <kendo-dropdownbutton [data]="shareData" [svgIcon]="svgSetting" 
+          (itemClick)="onItemClick($event)">
+        </kendo-dropdownbutton>
+
+        <!-- <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <kendo-dropdownbutton 
+              [data]="profileActions" 
+              icon="fas fa-user" 
+              [popupSettings]="{ popupClass: 'profile-dropdown' }">
+              <ng-template kendoDropDownButtonItemTemplate let-dataItem>
+                <a href="#" (click)="handleAction(dataItem.action)" class="dropdown-item">
+                  <i class="{{ dataItem.icon }}"></i> {{ dataItem.text }}
+                </a>
+              </ng-template>
+            </kendo-dropdownbutton>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+  </nav>
+</div>

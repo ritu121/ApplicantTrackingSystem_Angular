@@ -1,0 +1,26 @@
+.k-dropdownlist.form-control {
+    display: flex !important;
+   width: 100%;
+   padding: 0.375rem 0.75rem;
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1;
+   color: #4f4f4f;
+   background-color: #fff;
+   background-clip: padding-box;
+   border: 1px solid #bdbdbd;
+   appearance: none;
+   border-radius: 0.25rem;
+   height: 30px;
+ }
+ .k-dropdownlist.form-control.is-invalid  {
+  border-color: #dc3545 !important; /* Red border color for invalid state */
+  background-image : none !important;
+}
+.k-datepicker.is-invalid  {
+  border-color: #dc3545 !important; /* Red border color for invalid state */
+  background-image : none !important;
+}
+.is-invalid .form-check-input {
+  border-color: #dc3545 !important; /* Red border color for invalid state */
+}

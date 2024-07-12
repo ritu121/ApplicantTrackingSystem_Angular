@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div class="row" style="margin-top:5.3rem">
+        <div class="d-flex justify-content-between align-items-center"
+            style="background-color: rgb(9, 42, 77); height: 35px; ">
+            <div class="text-white" style="margin-left:5px; font-weight: 500;">JOBS</div>
+            <div class="d-flex align-items-center">
+                <i class="fas fa-plus" style="font-size: 21px; color: white; margin-right: 20px;" (click)="navigate()" title="Create New"></i>
+                <div (click)="exportToExcel() "><i class="far fa-file-excel"
+                  style="font-size: 21px; color: white; margin-top: 2px;" title="Export To Excel"></i></div>
+            </div>
+        </div>
+       
+
+    </div>
+
+    <div class="m-3">
+      <div *ngIf="loading" class="spinner-border" style="position: absolute; top: 50%; left: 50%; z-index: 10;"  role="status"></div>
+        <kendo-grid [kendoGridBinding]="allJobs" [pageSize]="pageSize" [skip]="skip" [resizable]="true"
+          (pageChange)="pageChange($event)" [sort]="sort" [columnMenu]="{ filter: true }" [pageable]="{
+            buttonCount: 7,
+            info: true,
+            pageSizes: [5,10,20,50,100],
+            previousNext: true
+          }" class="gridhandcursor text-center  mb-7" (sortChange)="sortChange($event)" [sortable]="{
+           allowUnsort: allowUnsort,
+           mode: multiple ? 'multiple' : 'single'
+           }">
+    
+          <kendo-grid-messages noRecords="No Records">
+          </kendo-grid-messages>
+          <kendo-grid-column field="jobName" title="Job Name">
+          </kendo-grid-column>
+          <kendo-grid-column field="vendorName" title="Vendor">
+          </kendo-grid-column>
+          <kendo-grid-column field="jobVendorID" title="Job ID">
+          </kendo-grid-column>
+          <kendo-grid-column field="description" title="Description">
+          </kendo-grid-column>
+          <kendo-grid-column field="jobReleaseDate" title="Job Release Date">
+          </kendo-grid-column>
+  
+          <kendo-grid-column field="isActive" title="Active/InActive" [width]="150">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <span *ngIf="dataItem.isActive; else inactive">{{dataItem.isActive}}</span>
+              <ng-template #inactive>Inactive</ng-template>
+            </ng-template>
+          </kendo-grid-column>
+    
+          <kendo-grid-column title=""  class="text-center d-flex justify-content-center" [width]="100">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <div (click)="editClick(dataItem)">
+                <i class="fa fa-edit mr-1 p-0"></i>
+            </div>&nbsp;&nbsp;&nbsp;
+            <div (click)="deleteData(dataItem)">
+                <i class="fa fa-trash mr-1"></i>
+            </div> &nbsp;
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-excelexport [data]="allJobs" [fileName]="'Candidates.xlsx'" #excelExport>
+            <kendo-excelexport-column *ngFor="let column of selectedColumns" [field]="column.field"
+                [title]="getColumnTitle(column.field)">
+            </kendo-excelexport-column>
+        </kendo-excelexport>
+          <ng-template>
+            <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+            <kendo-pager-info></kendo-pager-info>
+            <kendo-pager-next-buttons></kendo-pager-next-buttons>
+          </ng-template>
+        </kendo-grid>
+      </div>
+     
+   
+    </div>

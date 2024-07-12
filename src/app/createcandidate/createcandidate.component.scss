@@ -1,0 +1,130 @@
+legend {
+  font-size: 15px !important;
+  font-weight: bold !important;
+}
+
+.multiselect-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-footer {
+  padding: 10px;
+  text-align: right;
+  border-top: 1px solid #ccc;
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 30px;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" fill="black"/></svg>') no-repeat right 10px center/12px 12px;
+}
+
+.wrap-text {
+  width: auto;
+  /* Adjust the width as needed */
+  white-space: normal !important;
+  /* Allow text wrapping */
+}
+
+.table > :not(caption) > * > * {
+  padding: 9px 1.4rem;
+
+}
+
+
+@media (min-width: 768px) {
+  .columns {
+    width: 28.333333%;
+  }
+
+
+}
+
+// @media (max-width: 1199.98px) {
+
+// }
+
+@media (min-width: 768px) {
+  .columnData {
+      width: 28.333333%;
+  }
+ 
+}
+@media (min-width: 828px) {
+  .columnData {
+      width: 27.70%;
+      margin: 2px;
+  }
+ 
+  columns {
+    width: 28.333333%;
+  }
+}
+
+// .is-invalid {
+//   border-color: #dc4c64;
+//   background-repeat: no-repeat;
+//   background-position: right calc(0.4em + 0.1875rem) center;
+//   background-size: calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
+// }
+
+.k-dropdownlist.form-control.is-invalid  {
+  border-color: #dc3545 !important; /* Red border color for invalid state */
+  background-image : none !important;
+}
+
+.k-multiselect.form-control{
+  display: flex !important;
+}
+
+.k-dropdownlist.form-control {
+   display: flex !important;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #4f4f4f;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  appearance: none;
+  border-radius: 0.25rem;
+  height: 30px;
+}
+
+.k-input.k-datepicker.form-control {
+  display: flex !important;
+  height: 30px;
+}
+.k-datepicker.is-invalid  {
+  border-color: #dc3545 !important; /* Red border color for invalid state */
+  background-image : none !important;
+}
+.is-invalid .form-check-input {
+  border-color: #dc3545 !important; /* Red border color for invalid state */
+}
+
+

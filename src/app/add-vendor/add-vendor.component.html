@@ -1,0 +1,102 @@
+<div class="container-fluid ">
+    <div class="row" style="margin-top:5.3rem;">
+        <div class="d-flex justify-content-between align-items-center"
+            style="background-color: rgb(9, 42, 77); height: 35px; ">
+            <div class="text-white" style="margin-left:5px; font-weight: 500;">CREATE VENDOR</div>
+
+            <div class="d-flex align-items-center">
+                <i class="fas fa-circle-left" style="font-size: 21px; color: white; margin-right: 20px;"
+                    (click)="cancelClick()"></i>
+            </div>
+        </div>
+        <form [formGroup]="VendorForm" (ngSubmit)="onVendorSubmit()">
+            <div class="row border m-3">
+                <div class="col-md-6">
+                    <div class="p-3">
+                        <div>
+                            <label for="company" class="">Company <span style="color: red;">*</span></label>
+                            <input type="text" formControlName="Company" class="form-control " placeholder="Company"
+                                [ngClass]="{ 'is-invalid': submitted && fa.Company.errors }" />
+                            <div *ngIf="submitted && fa.Company.errors" class="invalid-feedback">
+                                <div *ngIf="fa.Company.errors.required">Company is required</div>
+                            </div>
+                            <!-- <input type="text" formControlName="VendorID" class="form-control" hidden /> -->
+                        </div>
+                        <div>
+                            <label for="Name" class="">Contact Name</label>
+                            <input type="text" formControlName="ContactName" class="form-control "
+                                placeholder="Contact Name" />
+                            <!-- <div *ngIf="submitted && fa.ContactName.errors" class="invalid-feedback">
+                                <div *ngIf="fa.ContactName.errors.required">Contact Name is required</div>
+                            </div> -->
+                        </div>
+                        <div>
+                            <label for="Number" class="">Mobile #</label>
+                            <input type="text" formControlName="Phone" class="form-control "
+                                placeholder="Phone Number" />
+                            <!-- <div *ngIf="submitted && fa.Phone.errors" class="invalid-feedback">
+                                <div *ngIf="fa.Phone.errors.required ">Phone Number is required</div>
+                                <div *ngIf="fa.Phone.errors.pattern">Enter a valid phone number</div>
+                            </div> -->
+                        </div>
+                        <div>
+                            <label for="VendorRelationshipWithClient" class="">Vendor Relationship With Client</label>
+                            <input type="text" formControlName="VendorRelationshipWithClient" class="form-control "
+                                placeholder="Vendor Relationship With Client" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3">
+                        <div>
+                            <label for="mail" class="">Email ID<span style="color: red;">*</span></label>
+                            <input type="email" formControlName="EmailID"
+                                [ngClass]="{ 'is-invalid': submitted && fa.EmailID.errors }" class="form-control "
+                                placeholder="Email ID" />
+                            <div *ngIf="submitted && fa.EmailID.errors" class="invalid-feedback">
+                                <div *ngIf="fa.EmailID.errors.required">Email is required</div>
+                                <div *ngIf="fa.EmailID.errors.email">Please Enter Valid Email</div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="form-group"><label for="mail" class="">Requirement/Technologies</label></div>
+
+                            <input type="mail" formControlName="Requirement_Technologies" class="form-control "
+                                placeholder="Requirement/Technologies" />
+
+
+                        </div>
+                        <div>
+                            <label for="vendorType" class="">Vendor Type</label>
+
+                            <kendo-dropdownlist formControlName="VendorType" [data]="vendorTypelist"
+                                class="form-control" textField="text" valueField="value"
+                                [defaultItem]="defaultItem"></kendo-dropdownlist>
+
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="FirstName" class="">Website </label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Website"
+                                    formControlName="Website" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row justify-content-evenly">
+                    <div class="col mb-3" style="margin-left: 1.5rem;">
+                        <button class="btn m-0 text-white">{{btnlabel}}</button>
+                        <button class="btn text-white" style="margin-left: 10px;"
+                            (click)="cancelClick()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

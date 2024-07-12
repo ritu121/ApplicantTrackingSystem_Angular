@@ -1,0 +1,94 @@
+<div class="container-fluid">
+    <div class="row" style="margin-top:5.3rem">
+        <div class="d-flex justify-content-between align-items-center"
+            style="background-color: rgb(9, 42, 77); height: 35px; ">
+            <div class="text-white" style="margin-left:5px; font-weight: 500;">JOBS</div>
+            <div class="d-flex align-items-center">
+            <i class="fas fa-circle-left" style="font-size: 21px; color: white; margin-right: 20px;"
+                (click)="cancelClick()"></i>
+        </div>
+        </div>   
+        
+
+    </div>
+    <form [formGroup]="JobsForm" (ngSubmit)="onJobsSubmit()">
+        <div class="row border m-3 w-50">
+            <div class="col-md-8">
+                <div class="p-3">
+                    <div>
+                        <label for="JobName" class="">Job Name <span style="color: red;">*</span></label>
+                        <input type="text" formControlName="JobName" class="form-control " placeholder="JobName"
+                            [ngClass]="{ 'is-invalid': submitted && fa.JobName.errors }" />
+                        <div *ngIf="submitted && fa.JobName.errors" class="invalid-feedback">
+                            <div *ngIf="fa.JobName.errors.required">Job Name is required</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="JobVendorID" class="">Job ID</label>
+                        <input type="text" [ngClass]="{ 'is-invalid': submitted && fa.JobVendorID.errors }"
+                            formControlName="JobVendorID" class="form-control " placeholder="Job ID" />
+                    </div>
+                    <div>
+                        <label for="Description" class="">Description</label>
+                        <input type="text" [ngClass]="{ 'is-invalid': submitted && fa.Description.errors }"
+                            formControlName="Description" class="form-control " placeholder="Description" />
+                    </div>
+                    <div>
+                        <label for="JobReleasedDate" class="">Job Released Date<span
+                                style="color: red;">*</span></label>
+                        <kendo-datepicker placeholder="Choose a date ..." formControlName="JobReleaseDate" [format]="'dd-MM-yyyy'"
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && (fa.JobReleaseDate.errors || fa.JobReleaseDate.value.length===0)}"></kendo-datepicker>
+                        <div *ngIf="submitted && (fa.JobReleaseDate.errors || fa.JobReleaseDate.value.length=== 0)"
+                            class="invalid-feedback">
+                            <div *ngIf="fa.JobReleaseDate.errors?.required || fa.JobReleaseDate.value.length === 0">
+                                Job Released Date is required</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="vendorList" class="">Vendor<span style="color: red;">*</span></label>
+                        <kendo-dropdownlist formControlName="VendorID" [data]="vendorList" class="form-control"
+                            textField="vendorName" valueField="vendorID"
+                            [ngClass]="{ 'is-invalid': submitted && (fa.VendorID.errors || fa.VendorID.value.value === 0) }"></kendo-dropdownlist>
+                        <div *ngIf="submitted && (fa.VendorID.errors || fa.VendorID.value.value === 0)"
+                            class="invalid-feedback">
+                            <div *ngIf="fa.VendorID.errors?.required || fa.VendorID.value.value === 0">Vendor is required
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="IsActive" formControlName="IsActive" class="m-1 ml-2" [ngClass]="{
+                    'is-invalid': submitted && JobsForm.get('IsActive')?.invalid}" />
+                        <label for="IsActive" class="mb-0 ml-2">Is Active </label>
+                        <div *ngIf="submitted && JobsForm.get('IsActive')?.invalid" class="invalid-feedback">
+                            <div *ngIf="JobsForm.get('IsActive')?.errors?.['required']">
+                                You must confirm that the is active.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-evenly mt-1" style="margin-left: 5px;">
+                <div class="col mb-3">
+                    <button type="submit" class="btn m-0 text-white">{{ btnlabel }}</button>
+                    <button type="button" class="btn btn-secondary text-white" style="margin-left: 10px;"
+                        (click)="cancelClick()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!-- {
+        "jobID": "c6e21f24-47e6-4c59-bcf7-1f4c8cc521d0",
+        "jobName": null,
+        "jobVendorID": "dsfsdsdf",
+        "description": "sdfsdfsfsfsdfsdf",
+        "jobReleaseDate": null,
+        "isActive": "Active",
+        "vendorName": "Pavan "
+    } -->
+
+</div>

@@ -1,0 +1,73 @@
+<div class="container-fluid ">
+
+    <div class="row" style="margin-top:5.3rem;">
+        <div class="d-flex justify-content-between align-items-center "
+            style="background-color: rgb(9, 42, 77); height: 35px; ">
+
+            <div class="text-white" style="margin-left:5px; font-weight: 500;">VENDORS</div>
+            <div class="d-flex align-items-center">
+                <i class="fas fa-plus" style="font-size: 21px; color: white; margin-right: 20px;"
+                    (click)="navigate()" title="Create New"></i>
+                <div (click)="exportToExcel()"><i class="far fa-file-excel" style="font-size: 20px; color: white; margin-top: 2px;" title="Export To Excel"></i></div>
+            </div>
+        </div>
+        <div class="mt-2 mb-7"> 
+            <div *ngIf="loading" class="spinner-border" style="position: absolute; top: 50%; left: 50%; z-index: 10;"  role="status"></div>
+            
+            <kendo-grid [kendoGridBinding]="vendorList" [pageSize]="pageSize" [skip]="skip" [resizable]="true"
+                (pageChange)="pageChange($event)" [sort]="sort" [columnMenu]="{ filter: true }" [pageable]="{
+                buttonCount: 7,
+                info: true, 
+                pageSizes: [5,10,20,50,100],
+                previousNext: true
+              }" class="gridhandcursor text-center  mb-7" (sortChange)="sortChange($event)" [sortable]="{
+               allowUnsort: allowUnsort,
+               mode: multiple ? 'multiple' : 'single'
+               }">
+
+                <kendo-grid-messages noRecords="No Records">
+                </kendo-grid-messages>
+               
+                <kendo-grid-column field="vendorID" title="Vender ID" [hidden]="true">
+                </kendo-grid-column>
+                <kendo-grid-column field="company" title="Company">
+                </kendo-grid-column>
+                <kendo-grid-column field="contactName" title="Contact Name">
+                </kendo-grid-column>
+                <kendo-grid-column field="phone" title="Mobile #">
+                </kendo-grid-column>
+                <kendo-grid-column field="vendorType" title="Vender Type">
+                </kendo-grid-column>
+                <kendo-grid-column field="emailID" title="Email ID">
+                </kendo-grid-column>
+                <kendo-grid-column field="requirement_Technologies" title="Requirement/Technologies">
+                </kendo-grid-column>
+                <kendo-grid-column field="vendorRelationshipWithClient" title="Vendor Relationship With Client">
+                </kendo-grid-column>
+                <kendo-grid-column field="website" title="Website">
+                </kendo-grid-column>
+                <kendo-grid-column title="" class="text-center d-flex justify-content-center" [width]="100">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <div (click)="editClick(dataItem)">
+                            <i class="fa fa-edit mr-1 p-0"></i>
+                        </div>&nbsp;&nbsp;&nbsp;
+                        <div (click)="deleteClick(dataItem)">
+                            <i class="fa fa-trash mr-1"></i>
+                        </div> &nbsp;
+                    </ng-template>
+                </kendo-grid-column>
+                <kendo-excelexport [data]="vendorList" [fileName]="'Candidates.xlsx'" #excelExport>
+                    <kendo-excelexport-column *ngFor="let column of selectedColumns" [field]="column.field"
+                        [title]="getColumnTitle(column.field)">
+                    </kendo-excelexport-column>
+                </kendo-excelexport>
+                <ng-template>
+                    <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+                    <kendo-pager-info></kendo-pager-info>
+                    <kendo-pager-next-buttons></kendo-pager-next-buttons>
+                </ng-template>
+            </kendo-grid>
+        </div>
+
+    </div>
+</div>

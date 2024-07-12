@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="row" style="margin-top: 5.3rem;">
+    <div class="d-flex justify-content-between align-items-center "
+      style="background-color: rgb(9, 42, 77); height: 35px; ">
+
+      <div class="text-white" style="margin-left:5px; font-weight: 500;">Post Configuration</div>
+
+
+    </div>
+  </div>
+  <form [formGroup]="postForm" (ngSubmit)="onpostdetailsSubmit()">
+    <div class="row border m-3 w-50">
+      <div class="col-md-6">
+        <div class="p-3">
+          <div class="form-group">
+            <label for="PostAppliedFor">Post Name<span style="color: red;" >*</span></label>
+            <input type="text" id="PostAppliedFor" formControlName="PostAppliedFor" class="form-control"
+              placeholder="Post Name" [ngClass]="{
+                  'is-invalid': submitted && postForm.get('PostAppliedFor')?.invalid  }" />
+            <div *ngIf="submitted && postForm.get('PostAppliedFor')?.invalid" class="invalid-feedback">
+
+              <div *ngIf="postForm.get('PostAppliedFor')?.errors?.['required']">
+                Post Name is required.
+              </div>
+              <div *ngIf="postForm.get('PostAppliedFor')?.errors?.['minlength']">
+                Post Name must be at least 3 characters long.
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <div class="form-group mt-1">
+            <input type="checkbox" id="IsActivetile" formControlName="IsActiveTile" class="m-1 ml-2" [ngClass]="{
+                  'is-invalid': submitted && postForm.get('IsActiveTile')?.invalid
+                }" />
+            <label for="IsActiveTile" class="mb-0 ml-2">Is Active Tile</label>
+            <div *ngIf="submitted && postForm.get('IsActiveTile')?.invalid" class="invalid-feedback">
+              <div *ngIf="postForm.get('IsActiveTile')?.errors?.['required']">
+                You must confirm Is ActiveTile .
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-1">
+            <input type="checkbox" id="IsActive" formControlName="IsActive" class="m-1 ml-2"
+            [checked]="postForm.get('IsActive')?.value === true"
+            [ngClass]="{
+                  'is-invalid': submitted && postForm.get('IsActive')?.invalid
+                }" />
+            <label for="IsActive" class="mb-0 ml-2">Is Active </label>
+            <div *ngIf="submitted && postForm.get('IsActive')?.invalid" class="invalid-feedback">
+              <div *ngIf="postForm.get('IsActive')?.errors?.['required']">
+                You must confirm that the post is active.
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row justify-content-evenly mt-4">
+            <div class="col mb-3">
+              <button type="submit" class="btn m-0 text-white">{{ btnlabel }}</button>
+              <button type="button" class="btn text-white" style="margin-left: 10px;" (click)="cancelClick()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+
+  <div class="m-3 w-50">
+    <div *ngIf="loading" class="spinner-border" style="position: absolute; top: 50%; left: 50%; z-index: 10;"  role="status"></div>
+    <kendo-grid [kendoGridBinding]="postList" [pageSize]="pageSize" [skip]="skip" [resizable]="true"
+      (pageChange)="pageChange($event)" [sort]="sort" [columnMenu]="{ filter: true }" [pageable]="{
+          buttonCount: 7,
+          info: true,
+          pageSizes: [5,10,20,50,100],
+          previousNext: true
+        }" class="gridhandcursor text-center  mb-7" (sortChange)="sortChange($event)" [sortable]="{
+         allowUnsort: allowUnsort,
+         mode: multiple ? 'multiple' : 'single'
+         }">
+
+      <kendo-grid-messages noRecords="No Records">
+      </kendo-grid-messages>
+      <kendo-grid-column field="postID" title="Post ID" [hidden]="true">
+      </kendo-grid-column>
+      <kendo-grid-column field="postAppliedFor" title="Post Name">
+      </kendo-grid-column>
+      <kendo-grid-column field="isActive" title="Active/InActive" [width]="180">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span *ngIf="dataItem.isActive">{{dataItem.isActive}}</span>
+          <ng-template #inactive>Inactive</ng-template>
+        </ng-template>
+      </kendo-grid-column>
+
+    <kendo-grid-column field="isActiveTile" title="Active/InActive Tile" [width]="180">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span *ngIf="dataItem.isActiveTile; else inactivetile">{{dataItem.isActiveTile}}</span>
+          <ng-template #inactivetile>InactiveTile</ng-template>
+        </ng-template>
+      </kendo-grid-column>
+
+
+      <kendo-grid-column title="" class="text-center " [width]="150">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <button kendoGridEditCommand (click)="editClick(dataItem)">
+            <i class="fa fa-edit mr-1"></i></button>&nbsp;
+
+        </ng-template>
+      </kendo-grid-column>
+      <ng-template>
+        <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+        <kendo-pager-info></kendo-pager-info>
+        <kendo-pager-next-buttons></kendo-pager-next-buttons>
+      </ng-template>
+    </kendo-grid>
+  </div>
+
+</div>

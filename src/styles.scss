@@ -1,0 +1,170 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Infodat-Candidate-Portal-primary: mat.define-palette(mat.$indigo-palette);
+$Infodat-Candidate-Portal-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Infodat-Candidate-Portal-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$Infodat-Candidate-Portal-theme: mat.define-light-theme((
+  color: (
+    primary: $Infodat-Candidate-Portal-primary,
+    accent: $Infodat-Candidate-Portal-accent,
+    warn: $Infodat-Candidate-Portal-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($Infodat-Candidate-Portal-theme);
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+//@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+//@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+// $Infodat-Candidate-Portal-primary: mat.define-palette(mat.$indigo-palette);
+// $Infodat-Candidate-Portal-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// // The warn palette is optional (defaults to red).
+// $Infodat-Candidate-Portal-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+// $Infodat-Candidate-Portal-theme: mat.define-light-theme((
+//   color: (
+//     primary: $Infodat-Candidate-Portal-primary,
+//     accent: $Infodat-Candidate-Portal-accent,
+//     warn: $Infodat-Candidate-Portal-warn,
+//   ),
+//   typography: mat.define-typography-config(),
+//   density: 0
+// ));
+
+// // Include theme styles for core and each component used in your app.
+// // Alternatively, you can import and @include the theme mixins for each component
+// // that you are using.
+// @include mat.all-component-themes($Infodat-Candidate-Portal-theme);
+
+/* You can add global styles to this file, and also import other style files */
+// Font Awesome
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+// MDB SCSS
+@import "mdb-angular-ui-kit/assets/scss/mdb.scss";
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.mat-mdc-table thead .mat-mdc-header-row .mat-mdc-header-cell{
+  background: rgb(9, 42, 77)!important;
+  color: white !important;
+}
+.k-button-md {
+    padding-block: 0;
+   padding-inline:0;
+}
+
+.k-grid-md .k-table-th {
+  background-color: rgb(9, 42, 77)!important;
+  color: white !important;
+}
+
+.k-table-thead, .k-table-header, .k-table-group-sticky-header{
+  background-color: rgb(9, 42, 77)!important;
+  color: white !important;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-size:14px;
+  // overflow: auto;
+}
+// .k-svg-icon {
+//   color: white !important;
+//   }
+.k-grid .k-grid-filter, .k-grid .k-header-column-menu, .k-grid .k-grid-header-menu, .k-grid .k-hierarchy-cell .k-icon {
+  color: white;
+}
+  .k-svg-icon:hover {
+    color: black !important;
+    }
+.k-button-md.k-icon-button .k-button-icon{
+  color: black !important;
+}
+.container-fluid {
+  max-height: 100%;
+  // overflow-y: auto;
+  // padding-bottom: 50px; /* Adjust according to your footer height */
+}
+.k-menu-group, .k-menu.k-context-menu{
+  border-color: var(--kendo-color-border, rgba(0, 0, 0, 0.08));
+  color: white !important;
+  background-color: rgb(9, 42, 77) !important;
+}
+// .k-menu-group, .k-menu.k-context-menu:hover{
+//   border-color: var(--kendo-color-border, rgba(0, 0, 0, 0.08));
+//   color: white !important;
+//   background-color: rgb(238, 25, 25) !important;
+// }
+.k-list-item.k-selected, .k-selected.k-list-optionlabel{
+  background-color: rgb(9, 42, 77)!important;
+}
+.btn{
+  background-color: rgb(9, 42, 77)!important;
+}
+button[disabled] {
+  cursor: not-allowed;
+}
+.k-columnmenu-item.k-selected{
+  background-color: rgb(9, 42, 77)!important;
+}
+.k-button-solid-primary{
+  background-color: rgb(9, 42, 77)!important;
+  border-color:rgb(9, 42, 77)!important;
+}
+.k-checkbox:checked{
+  background-color: rgb(9, 42, 77)!important;
+  border-color:rgb(9, 42, 77)!important;
+}
+.k-animation-container .k-animation-container-shown{
+  z-index: 1208 !important;
+  }
+
+.k-menu-group .k-item > .k-link:active, .k-menu-group .k-item > .k-link.k-active, 
+.k-menu-group .k-item > .k-link.k-selected, .k-menu.k-context-menu .k-item > .k-link:active,
+ .k-menu.k-context-menu .k-item > .k-link.k-active, .k-menu.k-context-menu .k-item > .k-link.k-selected{
+  background-color: rgb(220, 221, 223)!important;
+  color:black!important;
+}
+
+

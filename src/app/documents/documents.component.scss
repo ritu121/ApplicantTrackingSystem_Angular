@@ -1,0 +1,77 @@
+legend {
+    font-size: 1rem !important;
+    font-weight: bold !important;
+  }
+  
+  .multiselect-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-menu {
+    display: block;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .dropdown-footer {
+    padding: 10px;
+    text-align: right;
+    border-top: 1px solid #ccc;
+  }
+  
+  .custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 30px;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" fill="black"/></svg>') no-repeat right 10px center/12px 12px;
+  }
+  
+  .wrap-text {
+    width: auto;
+    /* Adjust the width as needed */
+    white-space: normal !important;
+    /* Allow text wrapping */
+  }
+  
+  .table > :not(caption) > * > * {
+    padding: 9px 1.4rem;
+  
+  }
+  
+  
+  @media (min-width: 768px) {
+    .columns {
+      width: 28.333333%;
+    }
+  
+  
+  }
+  
+  @media (max-width: 1199.98px) {
+    .fonts {
+      flex: 0 0 auto;
+      font-size: 13px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .columnData {
+        width: 28.333333%;
+        font-size: 13px;
+    }
+  }
